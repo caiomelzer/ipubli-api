@@ -5,6 +5,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const errorHandler = require('_middleware/error-handler');
 const pathApi = '/api/v1';
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('./swagger/swagger_output.json');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -14,7 +16,7 @@ app.use(cors());
 
 app.use(pathApi+'/users', require('./components/users/users.controller'));
 app.use(pathApi+'/influencers', require('./components/influencers/influencers.controller'));
-
+app.use(pathApi+'/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 // global error handler
 app.use(errorHandler);
 
