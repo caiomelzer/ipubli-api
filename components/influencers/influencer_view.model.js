@@ -9,7 +9,7 @@ function model(sequelize) {
         // etc...
       }, {
         treatAsView: true,
-        viewDefinition: `      CREATE OR REPLACE VIEW vw_influencers AS select influencers.* from Users join Influencers on Users.id = Influencers.user_id
+        viewDefinition: `      CREATE OR REPLACE VIEW vw_influencers AS select Influencers.* from Users join Influencers on Users.id = Influencers.user_id
         `
       });
      
