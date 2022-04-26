@@ -1,6 +1,7 @@
 const config = require('config.json');
 const mysql = require('mysql2/promise');
-const { Sequelize } = require('sequelize');
+//const { Sequelize, QueryTypes } = require('sequelize');
+const Sequelize = require('sequelize-views-support');
 
 module.exports = db = {};
 
@@ -16,7 +17,10 @@ async function initialize() {
     const sequelize = new Sequelize(database, user, password, { dialect: 'mysql' });
 
     // init models and add them to the exported db object
-    db.User = require('../users/user.model')(sequelize);
+    db.User = require('../components/users/user.model')(sequelize);
+    db.Influencer = require('../components/influencers/influencer.model')(sequelize);
+
+    db.InfluencerView = require('../components/influencers/influencer_view.model')(sequelize);
 
     // sync all models with database
     await sequelize.sync();

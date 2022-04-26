@@ -1,14 +1,12 @@
+
 const { DataTypes } = require('sequelize');
 
 module.exports = model;
 
 function model(sequelize) {
     const attributes = {
-        firstName: { type: DataTypes.STRING, allowNull: false },
-        lastName: { type: DataTypes.STRING, allowNull: false },
-        username: { type: DataTypes.STRING, allowNull: false },
-        hash: { type: DataTypes.STRING, allowNull: false },
-        email: { type: DataTypes.STRING, allowNull: false }
+        user_id: { type: DataTypes.STRING, allowNull: false },
+        status: { type: DataTypes.STRING, allowNull: false }
     };
 
     const options = {
@@ -22,5 +20,5 @@ function model(sequelize) {
         }
     };
 
-    return sequelize.define('User', attributes, options);
+    return sequelize.define('Influencer', attributes, options);
 }
