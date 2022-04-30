@@ -12,7 +12,7 @@ function model(sequelize) {
         city: { type: DataTypes.STRING, allowNull: true },
         state: { type: DataTypes.STRING, allowNull: true },
         status: { type: DataTypes.STRING, allowNull: true },
-        avatar: { type: DataTypes.STRING, allowNull: true }
+        avatar: { type: DataTypes.STRING, allowNull: true },
     };
 
     const options = {
