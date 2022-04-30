@@ -14,14 +14,33 @@ module.exports = {
     delete: _delete
 };
 
-
-
 async function getAll(filters) {
-    console.log(filters);
-    return await db.InfluencerView.findOne({ where: {
-        status: {[Op.notLike]: '%tive'} 
-        } 
-    })
+    
+    let filtersCustom = {
+        _top:10,
+        _orderby:[],
+        _filters:{
+            influencerStatus: {[Op.eq]:'active'},
+            userStatus: {[Op.eq]:'active'}
+        }
+    };
+    if(filters.state)
+        filtersCustom._filters.state =  {[Op.eq]: filters.state}
+    if(filters.segments)
+        filtersCustom._filters.segments =  {[Op.like]: filters.segments}
+    if(filters._t)
+        filtersCustom._top = parseInt(filters._t)
+    if(filters._o){
+        filters._o.split(';').forEach(function(filter){
+            filtersCustom._orderby.push(filter.split(','));
+        })
+    }    
+      
+    return await db.InfluencerView.findAll({ 
+        where: filtersCustom._filters,
+        limit: filtersCustom._top,
+        order: filtersCustom._orderby
+    });
 }
 
 async function getById(id) {

@@ -5,9 +5,8 @@ module.exports = model;
 
 function model(sequelize) {
     const attributes = {
-        user_id: { type: DataTypes.STRING, allowNull: false },
-        status: { type: DataTypes.STRING, allowNull: false },
-        segments: { type: DataTypes.STRING, allowNull: false }
+        user_id: { type: DataTypes.DECIMAL, allowNull: false },
+        segment_id: { type: DataTypes.DECIMAL, allowNull: false }
     };
 
     const options = {
@@ -21,5 +20,5 @@ function model(sequelize) {
         }
     };
 
-    return sequelize.define('Influencer', attributes, options);
+    return sequelize.define('InfluencerSegment', attributes, options);
 }

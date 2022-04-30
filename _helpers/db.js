@@ -12,6 +12,7 @@ async function initialize() {
     const { host, port, user, password, database } = config.database;
     const connection = await mysql.createConnection({ host, port, user, password });
     await connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
+    
 
     // connect to db
     const sequelize = new Sequelize(database, user, password, { dialect: 'mysql' });
@@ -19,8 +20,15 @@ async function initialize() {
     // init models and add them to the exported db object
     db.User = require('../components/users/user.model')(sequelize);
     db.Influencer = require('../components/influencers/influencer.model')(sequelize);
+    db.Network = require('../components/networks/network.model')(sequelize);
+    db.Segment = require('../components/segments/segment.model')(sequelize);
+    //db.Influencers_Segment = require('../components/custom/incluencers_segments.model')(sequelize);
+    db.State = require('../components/domains/state.model')(sequelize);
 
     db.InfluencerView = require('../components/influencers/influencer_view.model')(sequelize);
+
+    db.Influencer.hasMany(db.Segment);
+
 
     // sync all models with database
     await sequelize.sync();

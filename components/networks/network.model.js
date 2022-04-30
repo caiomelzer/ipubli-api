@@ -7,7 +7,13 @@ function model(sequelize) {
     const attributes = {
         user_id: { type: DataTypes.STRING, allowNull: false },
         status: { type: DataTypes.STRING, allowNull: false },
-        segments: { type: DataTypes.STRING, allowNull: false }
+        network: { type: DataTypes.STRING, allowNull: false },
+        avatar: { type: DataTypes.STRING, allowNull: true },
+        url: { type: DataTypes.STRING, allowNull: false },
+        followers: { type: DataTypes.INTEGER, allowNull: true },
+        posts: { type: DataTypes.INTEGER, allowNull: true, default: 0  }
+
+        
     };
 
     const options = {
@@ -21,5 +27,5 @@ function model(sequelize) {
         }
     };
 
-    return sequelize.define('Influencer', attributes, options);
+    return sequelize.define('Network', attributes, options);
 }

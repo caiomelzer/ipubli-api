@@ -13,10 +13,14 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // api routes
-
 app.use(pathApi+'/users', require('./components/users/users.controller'));
 app.use(pathApi+'/influencers', require('./components/influencers/influencers.controller'));
+app.use(pathApi+'/networks', require('./components/networks/networks.controller'));
+app.use(pathApi+'/segments', require('./components/segments/segments.controller'));
+app.use(pathApi+'/domains', require('./components/domains/domains.controller'));
+
 app.use(pathApi+'/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
 // global error handler
 app.use(errorHandler);
 
