@@ -9,7 +9,8 @@ module.exports = {
     getById,
     create,
     update,
-    delete: _delete
+    delete: _delete,
+    getCurrent
 };
 
 async function authenticate({ username, password }) {
@@ -29,6 +30,10 @@ async function getAll() {
 
 async function getById(id) {
     return await getUser(id);
+}
+
+async function getCurrent(id) {
+    return await getCurrent();
 }
 
 async function create(params) {
