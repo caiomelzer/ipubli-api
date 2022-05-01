@@ -6,7 +6,8 @@ module.exports = model;
 function model(sequelize) {
     const attributes = {
         segment: { type: DataTypes.STRING, allowNull: false },
-        user_id: { type: DataTypes.INTEGER, allowNull: false }
+        networkId: { type: DataTypes.STRING, allowNull: false },
+        
     };
 
     const options = {

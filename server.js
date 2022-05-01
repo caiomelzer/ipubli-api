@@ -18,6 +18,9 @@ app.use(pathApi+'/influencers', require('./components/influencers/influencers.co
 app.use(pathApi+'/networks', require('./components/networks/networks.controller'));
 app.use(pathApi+'/segments', require('./components/segments/segments.controller'));
 app.use(pathApi+'/domains', require('./components/domains/domains.controller'));
+app.use(pathApi+'/favorites', require('./components/favorites/favorites.controller'));
+app.use(pathApi+'/proposals', require('./components/proposals/proposals.controller'));
+app.use(pathApi+'/ipublis', require('./components/ipublis/ipublis.controller'));
 
 app.use(pathApi+'/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 

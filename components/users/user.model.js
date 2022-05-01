@@ -10,9 +10,10 @@ function model(sequelize) {
         hash: { type: DataTypes.STRING, allowNull: false },
         email: { type: DataTypes.STRING, allowNull: false },
         city: { type: DataTypes.STRING, allowNull: true },
-        state: { type: DataTypes.STRING, allowNull: true },
-        status: { type: DataTypes.STRING, allowNull: true },
-        avatar: { type: DataTypes.STRING, allowNull: true },
+        state: { type: DataTypes.STRING, allowNull: true},
+        status: { type: DataTypes.STRING, allowNull: true, defaultValue: 'I' },
+        avatar: { type: DataTypes.STRING, allowNull: true, defaultValue: '/assets/images/avatar.png'},
+        isInfluencer: { type: DataTypes.STRING, allowNull: true, defaultValue: 'N'},
     };
 
     const options = {

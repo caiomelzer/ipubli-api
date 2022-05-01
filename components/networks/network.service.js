@@ -20,7 +20,8 @@ async function getAll(filters) {
     console.log(filters);
     return await db.Network.findAll({ where: {
         status: {[Op.notLike]: '%tive'} 
-        } 
+        } ,
+        include:['segments']
     })
 }
 

@@ -6,7 +6,10 @@ module.exports = model;
 function model(sequelize) {
     const attributes = {
         userId: { type: DataTypes.STRING, allowNull: false },
-        status: { type: DataTypes.STRING, allowNull: false }
+        influenceId: { type: DataTypes.STRING, allowNull: false },
+        status: { type: DataTypes.STRING, allowNull: false , default: 'OPEN'},
+        startedAt: { type: DataTypes.DATE, allowNull: true},
+        finishAt: { type: DataTypes.DATE, allowNull: true},
     };
 
     const options = {
@@ -20,5 +23,5 @@ function model(sequelize) {
         }
     };
 
-    return sequelize.define('Influencer', attributes, options);
+    return sequelize.define('Ipubli', attributes, options);
 }

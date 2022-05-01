@@ -14,8 +14,8 @@ module.exports = {
 };
 
 async function authenticate({ username, password }) {
-    const user = await db.User.scope('withHash').findOne({ where: { username } });
-
+    const user = await db.User.scope('withHash').findOne({ where: { username },include: ["networks","favorites","proposals"] });
+    console.log('dasdasdas')
     if (!user || !(await bcrypt.compare(password, user.hash)))
         throw 'Username or password is incorrect';
 
@@ -25,7 +25,7 @@ async function authenticate({ username, password }) {
 }
 
 async function getAll() {
-    return await db.User.findAll();
+    return await db.User.findAll({ include: ["networks","favorites"] });
 }
 
 async function getById(id) {
@@ -33,7 +33,7 @@ async function getById(id) {
 }
 
 async function getCurrent(id) {
-    return await getCurrent();
+    return await getCurrent(); 
 }
 
 async function create(params) {

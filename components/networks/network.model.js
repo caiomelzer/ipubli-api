@@ -5,12 +5,12 @@ module.exports = model;
 
 function model(sequelize) {
     const attributes = {
-        user_id: { type: DataTypes.STRING, allowNull: false },
+        userId: { type: DataTypes.STRING, allowNull: false },
         status: { type: DataTypes.STRING, allowNull: false },
         network: { type: DataTypes.STRING, allowNull: false },
         avatar: { type: DataTypes.STRING, allowNull: true },
         url: { type: DataTypes.STRING, allowNull: false },
-        followers: { type: DataTypes.INTEGER, allowNull: true },
+        followers: { type: DataTypes.INTEGER, allowNull: true , default: 0  },
         posts: { type: DataTypes.INTEGER, allowNull: true, default: 0  }
 
         
