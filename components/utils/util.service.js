@@ -43,12 +43,21 @@ async function updateInstagramInfo(username) {
     let networkIdent = network.get();
     const networkFile = fs.readFileSync('./public/INSTAGRAM_'+networkIdent.username.toLowerCase()+'.json')
     const instagram = JSON.parse(networkFile);
-    let params = {
-        followers:instagram.followers,
-        avatar: instagram.profile_pic_url,
-        posts: instagram.lastMedia.count,
-        networkIdent: instagram.id
+    if(instagram.error === 'true'){
+        let params = {
+            followers:0,
+            networkIdent: '???'
+        }
     }
+    else{
+        let params = {
+            followers:instagram.followers,
+            avatar: instagram.profile_pic_url,
+            posts: instagram.lastMedia.count,
+            networkIdent: instagram.id
+        }
+    }
+    
     Object.assign(network, params);
     await network.save();
     return network.get();    
