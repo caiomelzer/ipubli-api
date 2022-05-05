@@ -41,7 +41,7 @@ async function updateInstagramInfo(username) {
     })
     if (!network) throw 'Network not found';
     let networkIdent = network.get();
-    const networkFile = fs.readFileSync('./public/INSTAGRAM_'+networkIdent.username+'.json')
+    const networkFile = fs.readFileSync('./public/INSTAGRAM_'+networkIdent.username.toLowerCase()+'.json')
     const instagram = JSON.parse(networkFile);
     let params = {
         followers:instagram.followers,
