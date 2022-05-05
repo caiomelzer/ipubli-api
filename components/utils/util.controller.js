@@ -27,7 +27,7 @@ function getInstagramInfo(req, res, next) {
     }
   };
   axios.request(options).then(function (response) {
-    fs.writeFile('./public/INSTAGRAM_'+response.data.username+'.json', JSON.stringify(response.data), function (err) {
+    fs.writeFile('./public/INSTAGRAM_'+response.data.username.toLowerCase()+'.json', JSON.stringify(response.data), function (err) {
       if (err) return console.log(err);
     });
     res.send('Instagram data saved!');
