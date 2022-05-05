@@ -29,7 +29,7 @@ async function getInstagramUser() {
 
 
 async function updateInstagramInfo(username) {
-    const network = await await db.Network.findOne({
+    const network = await db.Network.findOne({
         where: {
             network: {[Op.eq]: 'INSTAGRAM'},
             username: {[Op.eq]: username}
@@ -43,19 +43,20 @@ async function updateInstagramInfo(username) {
     let networkIdent = network.get();
     const networkFile = fs.readFileSync('./public/INSTAGRAM_'+networkIdent.username.toLowerCase()+'.json')
     const instagram = JSON.parse(networkFile);
-    console.log(instagram)
-    if(instagram.error){
-        let params = {
-            followers:0,
-            networkIdent: '???'
-        }
-    }
-    else{
-        let params = {
+    console.log(instagram.id)
+    let params;
+    if(instagram.id){
+        params = {
             followers:instagram.followers,
             avatar: instagram.profile_pic_url,
             posts: instagram.lastMedia.count,
             networkIdent: instagram.id
+        }
+    }
+    else{
+        params = {
+            followers:0,
+            networkIdent: '???'
         }
     }
     
