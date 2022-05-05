@@ -24,7 +24,7 @@ function model(sequelize) {
             }, {
       treatAsView: true,
       viewDefinition: ` create or replace view vw_influencers as select  u.id , 
-      u.username, u.status as userStatus from users u;
+      u.username, u.status as userStatus from Users u;
       `
     });
     return Foo;
