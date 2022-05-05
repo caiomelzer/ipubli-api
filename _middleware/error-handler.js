@@ -11,6 +11,6 @@ function errorHandler(err, req, res, next) {
             // jwt authentication error
             return res.status(401).json({ error:{message: 'Unauthorized' }});
         default:
-            return res.status(500).json({ error:{message: err,oi:'aas' }});
+            return res.status(500).json({ error:{message: err }});
     }
 }

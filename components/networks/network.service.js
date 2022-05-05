@@ -11,7 +11,8 @@ module.exports = {
     create,
     enable,
     disable,
-    delete: _delete
+    delete: _delete,
+    update
 };
 
 
@@ -20,10 +21,11 @@ async function getAll(filters) {
     console.log(filters);
     return await db.Network.findAll({ where: {
         status: {[Op.notLike]: '%tive'} 
-        } ,
+        },
         include:['segments']
     })
 }
+
 
 async function getById(id) {
     return await getNetwork(id);
@@ -36,7 +38,7 @@ async function create(params) {
     }
 
     // save network
-    await db.Influencer.create(params);
+    await db.Network.create(params);
 }
 
 async function enable(id, params) {
@@ -50,7 +52,7 @@ async function disable(id, params) {
     const network = await getNetwork(id);
     network.status = 'disable';
     await network.save();
-    return network.get();
+    return network.toJSON();
 }
 
 async function _delete(id) {
@@ -58,9 +60,16 @@ async function _delete(id) {
     await network.destroy();
 }
 
+async function update(id, params) {
+    const network = await getNetwork(id);
+    Object.assign(network, params);
+    await network.save();
+    return network.get();
+}
+
 // helper functions
 async function getNetwork(id) {
-    const network = await db.Influencer.findByPk(id);
+    const network = await db.Network.findByPk(id);
     if (!network) throw 'Network not found';
     return network;
 }

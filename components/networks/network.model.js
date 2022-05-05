@@ -8,10 +8,12 @@ function model(sequelize) {
         userId: { type: DataTypes.STRING, allowNull: false },
         status: { type: DataTypes.STRING, allowNull: false },
         network: { type: DataTypes.STRING, allowNull: false },
+        username:  { type: DataTypes.STRING, allowNull: false },
         avatar: { type: DataTypes.STRING, allowNull: true },
-        url: { type: DataTypes.STRING, allowNull: false },
+        url: { type: DataTypes.STRING, allowNull: true },
         followers: { type: DataTypes.INTEGER, allowNull: true , default: 0  },
-        posts: { type: DataTypes.INTEGER, allowNull: true, default: 0  }
+        posts: { type: DataTypes.INTEGER, allowNull: true, default: 0  },
+        networkIdent: { type: DataTypes.STRING, allowNull: true },
 
         
     };

@@ -23,7 +23,8 @@ function model(sequelize) {
       // etc...
             }, {
       treatAsView: true,
-      viewDefinition: ` create or replace view vw_influencers as select  u.id , u.username, u.status as userStatus, u.city, u.state, i.status as influencerStatus, n.network, n.posts, n.followers, n.url, n.status as networkStatus, u.createdAt, u.updatedAt, n.avatar, i.segments  from Influencers i  inner join Users u  on u.id = i.user_id  left join Networks n  on u.id =n.user_id 
+      viewDefinition: ` create or replace view vw_influencers as select  u.id , 
+      u.username, u.status as userStatus from users u;
       `
     });
     return Foo;

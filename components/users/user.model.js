@@ -13,7 +13,7 @@ function model(sequelize) {
         state: { type: DataTypes.STRING, allowNull: true},
         status: { type: DataTypes.STRING, allowNull: true, defaultValue: 'I' },
         avatar: { type: DataTypes.STRING, allowNull: true, defaultValue: '/assets/images/avatar.png'},
-        isInfluencer: { type: DataTypes.STRING, allowNull: true, defaultValue: 'N'},
+        isInfluencer: { type: DataTypes.STRING, allowNull: true, defaultValue: 'NO'},
     };
 
     const options = {
