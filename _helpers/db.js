@@ -11,7 +11,7 @@ async function initialize() {
     // create db if it doesn't already exist
     const { host, port, user, password, database } = config.database;
     const connection = await mysql.createConnection({ host, port, user, password });
-    //await connection.query(`DROP DATABASE \`${database}\`;`);
+    await connection.query(`DROP DATABASE \`${database}\`;`);
     await connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
     
     // connect to db
@@ -71,7 +71,7 @@ async function initialize() {
 
     // sync all models with database
     await sequelize.sync();
-    /*await connection.query(` USE ipubli; `);
+    await connection.query(` USE ipubli; `);
     await connection.query(`INSERT INTO Users (id,firstName,lastName,username,hash,email,state,status,avatar,isInfluencer,createdAt,updatedAt) VALUES (DEFAULT,'Caio','Melzer','caiomelzer','$2a$10$BDZsvx37Cx1MQfUwVK5/Xu6KLwHYkj20yAH8TduGs.BYFcxlDtrz.','melzer.caio@gmail.com','SP','I','/assets/images/avatar.png','NO','2022-05-01 03:09:30','2022-05-01 03:09:30');`);
     await connection.query(`INSERT INTO Users (id,firstName,lastName,username,hash,email,state,status,avatar,isInfluencer,createdAt,updatedAt) VALUES (DEFAULT,'Marcella','Lawder','marcella','$2a$10$BDZsvx37Cx1MQfUwVK5/Xu6KLwHYkj20yAH8TduGs.BYFcxlDtrz.','melzer.caio@gmail.com','SP','I','/assets/images/avatar.png','YES','2022-05-01 03:09:30','2022-05-01 03:09:30');`);
     await connection.query(`INSERT INTO Users (id,firstName,lastName,username,hash,email,state,status,avatar,isInfluencer,createdAt,updatedAt) VALUES (DEFAULT,'Influencer 1','Influencer','Teste 1','$2a$10$BDZsvx37Cx1MQfUwVK5/Xu6KLwHYkj20yAH8TduGs.BYFcxlDtrz.','melzer.caio@gmail.com','SP','I','/assets/images/avatar.png','YES','2022-05-01 03:09:30','2022-05-01 03:09:30');`);
@@ -105,7 +105,7 @@ async function initialize() {
     await connection.query(`INSERT INTO users_favorites (createdAt, updatedAt, UserId, FavoriteId) VALUES ('', '', '1', '1');`);
     await connection.query(`INSERT INTO users_favorites (createdAt, updatedAt, UserId, FavoriteId) VALUES ('', '', '2', '2');`);
     await connection.query(`INSERT INTO users_favorites (createdAt, updatedAt, UserId, FavoriteId) VALUES ('', '', '1', '2');`);
-*/
+
     console.log('Start Load Completed');
     
 }
