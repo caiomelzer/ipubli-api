@@ -42,4 +42,4 @@ const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 
 
 app.listen(port, () => console.log('Server listening on port ' + port));
 
-console.log('oioioi',process.env);
+console.log('oioioi',process.env.NODE_ENV);
