@@ -6,6 +6,11 @@
         "password": "iPubli2022!!",
         "database": "ipubli"
     },
-    "secret": "THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING"
+    "secret": "THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING",
+    "server":{
+        "environment":"development",
+        "port":4001
+    }
+    
 }
 
