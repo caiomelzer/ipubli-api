@@ -31,11 +31,12 @@ function getInstagramInfo(req, res, next) {
 
     }
     else{
-      fs.writeFile('./public/INSTAGRAM_'+response.data.id+'.json', JSON.stringify(response.data), function (err) {
+      fs.writeFile('./public/INSTAGRAM_'+response.data.username+'.json', JSON.stringify(response.data), function (err) {
         if (err) return console.log(err);
       });
       res.send('Instagram data saved!');
     }
+
   }).catch(function (error) {
     res.send('Instagram data not saved!');
   });
