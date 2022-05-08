@@ -13,11 +13,13 @@ module.exports = {
     getCurrent
 };
 
-async function authenticate({ username, password }) {
-    const user = await db.User.scope('withHash').findOne({ where: { username },include: ["networks","favorites","proposals"] });
+async function authenticate({ email, password }) {
+    console.log('dasdasdas')
+
+    const user = await db.User.scope('withHash').findOne({ where: { email },include: ["networks","favorites","proposals"] });
     console.log('dasdasdas')
     if (!user || !(await bcrypt.compare(password, user.hash)))
-        throw 'Username or password is incorrect';
+        throw 'Email or password is incorrect';
 
     // authentication successful
     const token = jwt.sign({ sub: user.id }, config.secret, { expiresIn: '7d' });
@@ -38,8 +40,8 @@ async function getCurrent(id) {
 
 async function create(params) {
     // validate
-    if (await db.User.findOne({ where: { username: params.username } })) {
-        throw 'Username "' + params.username + '" is already taken';
+    if (await db.User.findOne({ where: { username: params.email } })) {
+        throw 'Email "' + params.email + '" is already taken';
     }
 
     // hash password
@@ -55,9 +57,9 @@ async function update(id, params) {
     const user = await getUser(id);
 
     // validate
-    const usernameChanged = params.username && user.username !== params.username;
-    if (usernameChanged && await db.User.findOne({ where: { username: params.username } })) {
-        throw 'Username "' + params.username + '" is already taken';
+    const usernameChanged = params.email && user.email !== params.email;
+    if (usernameChanged && await db.User.findOne({ where: { email: params.email } })) {
+        throw 'Email "' + params.email + '" is already taken';
     }
 
     // hash password if it was entered

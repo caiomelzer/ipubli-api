@@ -71,13 +71,13 @@ async function initialize() {
 
     // sync all models with database
     await sequelize.sync();
-    /*
-    await connection.query(` USE ipubli; `);
+    
+    /*await connection.query(` USE ipubli; `);
     await connection.query(`INSERT INTO Users (id,firstName,lastName,username,hash,email,state,status,avatar,isInfluencer,createdAt,updatedAt) VALUES (DEFAULT,'Caio','Melzer','caiomelzer','$2a$10$BDZsvx37Cx1MQfUwVK5/Xu6KLwHYkj20yAH8TduGs.BYFcxlDtrz.','melzer.caio@gmail.com','SP','I','/assets/images/avatar.png','NO','2022-05-01 03:09:30','2022-05-01 03:09:30');`);
-    await connection.query(`INSERT INTO Users (id,firstName,lastName,username,hash,email,state,status,avatar,isInfluencer,createdAt,updatedAt) VALUES (DEFAULT,'Marcella','Lawder','marcella','$2a$10$BDZsvx37Cx1MQfUwVK5/Xu6KLwHYkj20yAH8TduGs.BYFcxlDtrz.','melzer.caio@gmail.com','SP','I','/assets/images/avatar.png','YES','2022-05-01 03:09:30','2022-05-01 03:09:30');`);
-    await connection.query(`INSERT INTO Users (id,firstName,lastName,username,hash,email,state,status,avatar,isInfluencer,createdAt,updatedAt) VALUES (DEFAULT,'Influencer 1','Influencer','Teste 1','$2a$10$BDZsvx37Cx1MQfUwVK5/Xu6KLwHYkj20yAH8TduGs.BYFcxlDtrz.','melzer.caio@gmail.com','SP','I','/assets/images/avatar.png','YES','2022-05-01 03:09:30','2022-05-01 03:09:30');`);
-    await connection.query(`INSERT INTO Users (id,firstName,lastName,username,hash,email,state,status,avatar,isInfluencer,createdAt,updatedAt) VALUES (DEFAULT,'Influencer 2','Influencer','Teste 2','$2a$10$BDZsvx37Cx1MQfUwVK5/Xu6KLwHYkj20yAH8TduGs.BYFcxlDtrz.','melzer.caio@gmail.com','SP','I','/assets/images/avatar.png','YES','2022-05-01 03:09:30','2022-05-01 03:09:30');`);
-    await connection.query(`INSERT INTO Users (id,firstName,lastName,username,hash,email,state,status,avatar,isInfluencer,createdAt,updatedAt) VALUES (DEFAULT,'Influencer 3','Influencer','Teste 3','$2a$10$BDZsvx37Cx1MQfUwVK5/Xu6KLwHYkj20yAH8TduGs.BYFcxlDtrz.','melzer.caio@gmail.com','SP','I','/assets/images/avatar.png','YES','2022-05-01 03:09:30','2022-05-01 03:09:30');`);
+    await connection.query(`INSERT INTO Users (id,firstName,lastName,username,hash,email,state,status,avatar,isInfluencer,createdAt,updatedAt) VALUES (DEFAULT,'Marcella','Lawder','marcella','$2a$10$BDZsvx37Cx1MQfUwVK5/Xu6KLwHYkj20yAH8TduGs.BYFcxlDtrz.','melzer.caio1@gmail.com','SP','I','/assets/images/avatar.png','YES','2022-05-01 03:09:30','2022-05-01 03:09:30');`);
+    await connection.query(`INSERT INTO Users (id,firstName,lastName,username,hash,email,state,status,avatar,isInfluencer,createdAt,updatedAt) VALUES (DEFAULT,'Influencer 1','Influencer','Teste 1','$2a$10$BDZsvx37Cx1MQfUwVK5/Xu6KLwHYkj20yAH8TduGs.BYFcxlDtrz.','melzer.caio2@gmail.com','SP','I','/assets/images/avatar.png','YES','2022-05-01 03:09:30','2022-05-01 03:09:30');`);
+    await connection.query(`INSERT INTO Users (id,firstName,lastName,username,hash,email,state,status,avatar,isInfluencer,createdAt,updatedAt) VALUES (DEFAULT,'Influencer 2','Influencer','Teste 2','$2a$10$BDZsvx37Cx1MQfUwVK5/Xu6KLwHYkj20yAH8TduGs.BYFcxlDtrz.','melzer.caio3@gmail.com','SP','I','/assets/images/avatar.png','YES','2022-05-01 03:09:30','2022-05-01 03:09:30');`);
+    await connection.query(`INSERT INTO Users (id,firstName,lastName,username,hash,email,state,status,avatar,isInfluencer,createdAt,updatedAt) VALUES (DEFAULT,'Influencer 3','Influencer','Teste 3','$2a$10$BDZsvx37Cx1MQfUwVK5/Xu6KLwHYkj20yAH8TduGs.BYFcxlDtrz.','melzer.caio4@gmail.com','SP','I','/assets/images/avatar.png','YES','2022-05-01 03:09:30','2022-05-01 03:09:30');`);
     await connection.query(`INSERT INTO States (id, state, createdAt, updatedAt) VALUES (DEFAULT, 'SP', NOW(), NOW());`);
     await connection.query(`INSERT INTO States (id, state, createdAt, updatedAt) VALUES (DEFAULT, 'RJ', NOW(), NOW());`);
     await connection.query(`INSERT INTO Networks (id, userId, status, network, avatar, url, followers, posts, createdAt, updatedAt, username, networkIdent) VALUES (NULL, '2', '', 'INSTAGRAM', '/assets/images/avatar.png', 'https://www.instagram.com/', '0', '0', NOW(), NOW(), 'ladylawoficial','');`);
@@ -105,8 +105,8 @@ async function initialize() {
 
     await connection.query(`INSERT INTO users_favorites (createdAt, updatedAt, UserId, FavoriteId) VALUES (NOW(), NOW(), '1', '1');`);
     await connection.query(`INSERT INTO users_favorites (createdAt, updatedAt, UserId, FavoriteId) VALUES (NOW(), NOW(), '2', '2');`);
-    await connection.query(`INSERT INTO users_favorites (createdAt, updatedAt, UserId, FavoriteId) VALUES (NOW(), NOW(), '1', '2');`);
-*/
+    await connection.query(`INSERT INTO users_favorites (createdAt, updatedAt, UserId, FavoriteId) VALUES (NOW(), NOW(), '1', '2');`);*/
+ 
     console.log('Start Load Completed');
     
 }
