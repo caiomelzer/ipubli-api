@@ -1,7 +1,9 @@
 module.exports = errorHandler;
 
 function errorHandler(err, req, res, next) {
+    console.log(err);
     switch (true) {
+        
         case typeof err === 'string':
             // custom application error
             const is404 = err.toLowerCase().endsWith('not found');

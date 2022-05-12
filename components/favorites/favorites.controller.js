@@ -12,7 +12,14 @@ module.exports = router;
 function getAll(req, res, next) {
     console.log(req.user)
     favoriteService.getAll(req.user.id)
-        .then(favorites => res.json(favorites))
+        .then(favorites =>{
+            console.log(req.user.id, favorites)
+            
+            res.json(favorites)}
+        
+        
+        
+        )
         .catch(next);
 }
 

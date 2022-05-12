@@ -5,7 +5,8 @@ module.exports = model;
 
 function model(sequelize) {
     const attributes = {
-        state: { type: DataTypes.STRING, allowNull: false }
+        state: { type: DataTypes.STRING, allowNull: false },
+        countryId: { type: DataTypes.INTEGER, allowNull: false }
     };
 
     const options = {

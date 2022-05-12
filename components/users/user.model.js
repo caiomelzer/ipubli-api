@@ -9,11 +9,13 @@ function model(sequelize) {
         username: { type: DataTypes.STRING, allowNull: false },
         hash: { type: DataTypes.STRING, allowNull: false },
         email: { type: DataTypes.STRING, allowNull: false },
+        country: { type: DataTypes.STRING, allowNull: true },
         city: { type: DataTypes.STRING, allowNull: true },
         state: { type: DataTypes.STRING, allowNull: true},
-        status: { type: DataTypes.STRING, allowNull: true, defaultValue: 'I' },
+        status: { type: DataTypes.STRING, allowNull: true, defaultValue: 'INACTIVE' },
         avatar: { type: DataTypes.STRING, allowNull: true, defaultValue: '/assets/images/avatar.png'},
         isInfluencer: { type: DataTypes.STRING, allowNull: true, defaultValue: 'NO'},
+        startValue: { type: DataTypes.DECIMAL, allowNull: true, defaultValue: 0},
     };
 
     const options = {

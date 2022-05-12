@@ -5,9 +5,7 @@ module.exports = model;
 
 function model(sequelize) {
     const attributes = {
-        segment: { type: DataTypes.STRING, allowNull: false },
-        userId: { type: DataTypes.STRING, allowNull: false },
-        
+        country: { type: DataTypes.STRING, allowNull: false }
     };
 
     const options = {
@@ -21,5 +19,5 @@ function model(sequelize) {
         }
     };
 
-    return sequelize.define('Segment', attributes, options);
+    return sequelize.define('Country', attributes, options);
 }

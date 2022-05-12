@@ -15,14 +15,12 @@ module.exports = {
 };
 
 async function getAll(filters) {
-    
+    //http://localhost:4001/api/v1/influencers?_t=3&_o=instagramFollowers,DESC
+    //http://localhost:4001/api/v1/influencers?_t=1000000&_o=startValue,ASC
     let filtersCustom = {
-        _top:10,
+        _top:100,
         _orderby:[],
-        _filters:{
-            influencerStatus: {[Op.eq]:'active'},
-            userStatus: {[Op.eq]:'active'}
-        }
+        _filters:{}
     };
     if(filters.state)
         filtersCustom._filters.state =  {[Op.eq]: filters.state}
@@ -78,7 +76,7 @@ async function _delete(id) {
 
 // helper functions
 async function getInfluencer(id) {
-    const influencer = await db.Influencer.findByPk(id);
+    const influencer = await db.InfluencerView.findByPk(id);
     if (!influencer) throw 'Influencer not found';
     return influencer;
 }

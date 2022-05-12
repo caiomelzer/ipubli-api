@@ -13,12 +13,10 @@ module.exports = {
 
 async function getAll(user_id) {
     console.log(user_id)
-    return await db.Favorite.findAll({ 
+    return await db.FavoriteView.findAll({ 
         where: {
-            userId:  {[Op.eq]: user_id},
-        },
-        include:['users']
-        
+            userId:  {[Op.eq]: user_id}
+        }
     });
 }
 
