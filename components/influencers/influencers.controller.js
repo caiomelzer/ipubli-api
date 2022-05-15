@@ -6,8 +6,8 @@ const authorize = require('_middleware/authorize')
 const influencerService = require('./influencer.service');
 
 // routes
-router.get('/', authorize(), getAll);
-router.get('/:id', authorize(), getById);
+router.get('/', getAll);
+router.get('/:id', getById);
 router.put('/:id/enable', authorize(), enable);
 router.put('/:id/disable', authorize(), disable);
 router.delete('/:id', authorize(), _delete);
