@@ -8,6 +8,8 @@ const userService = require('./../users/user.service');
 
 // routes
 router.get('/', authorize(), getAll);
+router.delete('/:id', authorize(), _delete);
+router.post('/:id', authorize(), add);
 module.exports = router;
 function getAll(req, res, next) {
     console.log(req.user)
@@ -24,7 +26,14 @@ function getAll(req, res, next) {
 }
 
 function add(req, res, next) {
-    userService.create(req.body)
+    console.log('dadadasdasda')
+    favoriteService.add(req.user.id, req.params.id)
+        .then(() => res.json({ message: 'Registration successful' }))
+        .catch(next);
+}
+
+function _delete(req, res, next) {
+    favoriteService._delete(req.user.id, req.params.id)
         .then(() => res.json({ message: 'Registration successful' }))
         .catch(next);
 }

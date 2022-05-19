@@ -8,7 +8,7 @@ const { Op } = require("sequelize");
 module.exports = {
     getAll,
     add,
-    //remove
+    _delete
 };
 
 async function getAll(user_id) {
@@ -21,17 +21,21 @@ async function getAll(user_id) {
 }
 
 
-async function add(params) {
-    // validate
-    /*if (await db.User.findOne({ where: { username: params.username } })) {
-        throw 'Username "' + params.username + '" is already taken';
-    }
+async function add(user_id, influencer_id) {
+    console.log(user_id, influencer_id)
+    await db.Favorite.create({
+        userId:user_id,
+        influencerId: influencer_id
+    });
+}
 
-    // hash password
-    if (params.password) {
-        params.hash = await bcrypt.hash(params.password, 10);
-    }
-
-    // save user
-    await db.User.create(params);*/
+async function _delete(user_id, influencer_id) {
+    const favorite = await db.Favorite.findOne({
+        where: {
+            userId:user_id,
+            influencerId: influencer_id 
+        }
+    }); 
+    console.log(favorite)
+    await favorite.destroy();
 }

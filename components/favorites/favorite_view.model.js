@@ -6,7 +6,7 @@ module.exports = model;
 function model(sequelize) {
     const Favorites = sequelize.define('vw_favorites', {
       userId: {type: DataTypes.INTEGER, primaryKey: true},
-      instagramId: DataTypes.INTEGER,
+      influencerId: DataTypes.INTEGER,
       country: DataTypes.STRING,
       state: DataTypes.STRING,
       city: DataTypes.STRING,
@@ -17,10 +17,10 @@ function model(sequelize) {
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE
       
-      // etc...
+      // etc... 
             }, {
       treatAsView: true,
-      viewDefinition: `create or replace view vw_favorites as SELECT f.userId, v.instagramId, v.country, v.state, v.city, v.instagramAvatar, v.instagramFollowers, v.instagramPosts, v.segments, v.createdAt, v.updatedAt FROM Favorites f left join vw_influencers v on f.influencerId = v.userId      `
+      viewDefinition: `create or replace view vw_favorites as SELECT f.userId, v.influencerId, v.country, v.state, v.city, v.instagramAvatar, v.instagramFollowers, v.instagramPosts, v.segments, v.createdAt, v.updatedAt FROM Favorites f left join vw_influencers v on f.influencerId = v.userId      `
     });
     return Favorites;
 }
