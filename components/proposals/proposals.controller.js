@@ -8,7 +8,7 @@ const proposalService = require('./proposal.service');
 // routes
 router.get('/', authorize(), getAll);
 router.get('/:id', authorize(), getById);
-router.post('/', createSchema, create);
+router.post('/', authorize(), createSchema, create);
 router.put('/:id', authorize(), update);
 router.put('/:id/user-approve', authorize(), userApprove);
 router.put('/:id/influencer-approve', authorize(), influencerApprove);

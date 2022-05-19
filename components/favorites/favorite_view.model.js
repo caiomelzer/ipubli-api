@@ -10,6 +10,7 @@ function model(sequelize) {
       country: DataTypes.STRING,
       state: DataTypes.STRING,
       city: DataTypes.STRING,
+      startValue: DataTypes.STRING,
       instagramAvatar: DataTypes.STRING,
       instagramFollowers: DataTypes.STRING,
       instagramPosts: DataTypes.STRING,
@@ -20,7 +21,7 @@ function model(sequelize) {
       // etc... 
             }, {
       treatAsView: true,
-      viewDefinition: `create or replace view vw_favorites as SELECT f.userId, v.influencerId, v.country, v.state, v.city, v.instagramAvatar, v.instagramFollowers, v.instagramPosts, v.segments, v.createdAt, v.updatedAt FROM Favorites f left join vw_influencers v on f.influencerId = v.userId      `
+      viewDefinition: `create or replace view vw_favorites as SELECT f.userId, v.influencerId, v.country, v.state, v.city, v.startValue, v.instagramAvatar, v.instagramFollowers, v.instagramPosts, v.segments, v.createdAt, v.updatedAt FROM Favorites f left join vw_influencers v on f.influencerId = v.userId      `
     });
     return Favorites;
 }
