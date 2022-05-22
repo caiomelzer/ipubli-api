@@ -45,7 +45,6 @@ function getInstagramInfo(req, res, next) {
 function updateInstagramInfo(req, res, next) {
   utilService.updateInstagramInfo(req.params.username)
   .then(network => { 
-    console.log(network)
     res.json(network);
 
   })
