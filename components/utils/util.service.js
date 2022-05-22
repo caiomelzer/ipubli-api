@@ -52,6 +52,10 @@ async function updateInstagramInfo(username) {
             posts: instagram.lastMedia.count,
             networkIdent: instagram.id
         }
+        fs.rename('./public/INSTAGRAM_'+networkIdent.username.toLowerCase()+'.json', './public/INSTAGRAM_'+instagram.id+'.json', function (err) {
+            if (err) throw err;
+            console.log('File Renamed.');
+        });
     }
     else{
         params = {
@@ -62,5 +66,6 @@ async function updateInstagramInfo(username) {
     
     Object.assign(network, params);
     await network.save();
+    
     return network.get();    
 }
