@@ -50,7 +50,7 @@ async function updateInstagramInfo(username) {
     if(instagram.id){
         params = {
             followers:instagram.followers,
-            avatar: instagram.profile_pic_url,
+            avatar: '/public/INSTAGRAM_'+instagram.id+'.png',
             posts: instagram.lastMedia.count,
             networkIdent: instagram.id
         }
@@ -73,11 +73,6 @@ async function updateInstagramInfo(username) {
         await browser.close();
         
 ///UPDATE `Networks` SET `updatedAt` = '2022-03-01 11:36:57', posts= 0, followers =0, networkIdent=null
-
-
-        
-
-        
     }
     else{
         params = {
