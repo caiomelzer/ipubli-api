@@ -14,7 +14,7 @@ var fs = require('fs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
-app.use(express.static('public'));
+app.use('/public', express.static('public'));
 
 const { server } = require('./config');
 
