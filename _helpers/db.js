@@ -1,5 +1,6 @@
 const config = require('config.json');
 const mysql = require('mysql2/promise');
+
 //const { Sequelize, QueryTypes } = require('sequelize');
 const Sequelize = require('sequelize-views-support');
 
@@ -10,12 +11,24 @@ initialize();
 async function initialize() {
     // create db if it doesn't already exist
     const { host, port, user, password, database } = config.database;
+    console.log(host)
     const connection = await mysql.createConnection({ host, port, user, password });
-    //await connection.query(`DROP DATABASE \`${database}\`;`);
+    await connection.query(`DROP DATABASE \`${database}\`;`);
     await connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
     
     // connect to db
-    const sequelize = new Sequelize(database, user, password, { dialect: 'mysql' });
+  
+    const sequelize = new Sequelize(database, user, password, {
+        host: host,
+        port: port,
+        maxConcurrentQueries: 100,
+        dialect: 'mysql',
+        dialectOptions: {
+            ssl:'Amazon RDS'
+        },
+        pool: { maxConnections: 5, maxIdleTime: 30},
+        language: 'en'
+    })   
 
     // init models and add them to the exported db object
     db.User = require('../components/users/user.model')(sequelize);
@@ -78,9 +91,9 @@ async function initialize() {
     await sequelize.sync();
     
     await connection.query(` USE ipubli; `);
-    /*
+    
     await connection.query(`INSERT INTO Users (id,firstName,lastName,username,hash,email,state,status,avatar,isInfluencer,createdAt,updatedAt) VALUES (DEFAULT,'Caio','Melzer','melzer.caio@gmail.com','$2a$10$BDZsvx37Cx1MQfUwVK5/Xu6KLwHYkj20yAH8TduGs.BYFcxlDtrz.','melzer.caio@gmail.com','SP','ACTIVE','/assets/images/avatar.png','NO','2022-05-01 03:09:30','2022-05-01 03:09:30');`);
-    await connection.query(`INSERT INTO Users (id,firstName,lastName,username,hash,email,state,status,avatar,isInfluencer,createdAt,updatedAt) VALUES (DEFAULT,'Marcella','Lawder','marcella','$2a$10$BDZsvx37Cx1MQfUwVK5/Xu6KLwHYkj20yAH8TduGs.BYFcxlDtrz.','melzer.caio1@gmail.com','SP','ACTIVE','/assets/images/avatar.png','NO','2022-05-01 03:09:30','2022-05-01 03:09:30');`);
+    /*await connection.query(`INSERT INTO Users (id,firstName,lastName,username,hash,email,state,status,avatar,isInfluencer,createdAt,updatedAt) VALUES (DEFAULT,'Marcella','Lawder','marcella','$2a$10$BDZsvx37Cx1MQfUwVK5/Xu6KLwHYkj20yAH8TduGs.BYFcxlDtrz.','melzer.caio1@gmail.com','SP','ACTIVE','/assets/images/avatar.png','NO','2022-05-01 03:09:30','2022-05-01 03:09:30');`);
     await connection.query(`INSERT INTO Users (id,firstName,lastName,username,hash,email,state,status,avatar,isInfluencer,createdAt,updatedAt) VALUES (DEFAULT,'Influencer 1','Influencer','Teste 1','$2a$10$BDZsvx37Cx1MQfUwVK5/Xu6KLwHYkj20yAH8TduGs.BYFcxlDtrz.','melzer.caio2@gmail.com','SP','ACTIVE','/assets/images/avatar.png','YES','2022-05-01 03:09:30','2022-05-01 03:09:30');`);
     await connection.query(`INSERT INTO Users (id,firstName,lastName,username,hash,email,state,status,avatar,isInfluencer,createdAt,updatedAt) VALUES (DEFAULT,'Influencer 2','Influencer','Teste 2','$2a$10$BDZsvx37Cx1MQfUwVK5/Xu6KLwHYkj20yAH8TduGs.BYFcxlDtrz.','melzer.caio3@gmail.com','SP','ACTIVE','/assets/images/avatar.png','YES','2022-05-01 03:09:30','2022-05-01 03:09:30');`);
     await connection.query(`INSERT INTO Users (id,firstName,lastName,username,hash,email,state,status,avatar,isInfluencer,createdAt,updatedAt) VALUES (DEFAULT,'Influencer 3','Influencer','Teste 3','$2a$10$BDZsvx37Cx1MQfUwVK5/Xu6KLwHYkj20yAH8TduGs.BYFcxlDtrz.','melzer.caio4@gmail.com','SP','ACTIVE','/assets/images/avatar.png','YES','2022-05-01 03:09:30','2022-05-01 03:09:30');`);

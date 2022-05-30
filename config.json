@@ -1,9 +1,9 @@
 ﻿{
     "database": {
-        "host": "localhost",
+        "host": "database-ipubli.cqib8nrlixts.sa-east-1.rds.amazonaws.com",
         "port": 3306,
-        "user": "ipubli",
-        "password": "iPubli2022!!",
+        "user": "admin",
+        "password": "Ca1603!!",
         "database": "ipubli"
     },
     "secret": "THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING",
@@ -12,6 +12,5 @@
         "port":4001,
         "url":"http://localhost:4001"
     }
-    
 }
 
