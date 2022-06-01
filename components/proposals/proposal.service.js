@@ -30,11 +30,13 @@ async function getAll(user_id, filters) {
             filtersCustom._orderby.push(filter.split(','));
         })
     }    
-      
+      console.log('dasdasda')
     return await db.Proposal.findAll({ 
         where: {
             [Op.and]:[
-                {isPubli:'NO'}
+                {
+                    isIPubli:{[Op.eq]: 'NO'}
+                }
             ],
             [Op.or]: [
               {
@@ -48,8 +50,7 @@ async function getAll(user_id, filters) {
                   }
               }
             ]
-        },
-        order: [id]
+        }
     });
 }
 
