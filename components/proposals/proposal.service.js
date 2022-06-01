@@ -4,6 +4,10 @@ const bcrypt = require('bcryptjs');
 const db = require('_helpers/db');
 const { Op } = require("sequelize");
 const { param } = require('./proposals.controller');
+const axios = require("axios");
+
+
+
 
 
 module.exports = {
@@ -98,6 +102,21 @@ async function create(params) {
     params.isApprovedByUser = "NO";
     params.isApprovedByInfluencer = "NO";
     await db.Proposal.create(params);
+    const options = {
+        method: 'POST',
+        url: 'https://rapidprod-sendgrid-v1.p.rapidapi.com/mail/send',
+        headers: {
+          'content-type': 'application/json',
+          'X-RapidAPI-Host': 'rapidprod-sendgrid-v1.p.rapidapi.com',
+          'X-RapidAPI-Key': 's0ZkL9xIhmmshLKzQoBI1GzIrm0Op10bhXtjsn4P3PuE6ELOqN'
+        },
+        data: '{"personalizations":[{"to":[{"email":"melzer.caio@gmail.com"}],"subject":"TEste, World!"}],"from":{"email":"from_address@example.com"},"content":[{"type":"text/plain","value":"Hello, World!"}]}'
+      };
+      await axios.request(options).then(function (response) {
+        console.log(response.data);
+    }).catch(function (error) {
+        console.error(error);
+    });
 }
 
 async function update(user_id, id, params) {
