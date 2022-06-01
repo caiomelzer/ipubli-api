@@ -85,7 +85,7 @@ function influencerApprove(req, res, next) {
             console.log(res)
             res.json({ message: 'Updated successful' })
         })
-        .catch(next);
+        .catch(next); 
 }
 
 function influencerReject(req, res, next) {
