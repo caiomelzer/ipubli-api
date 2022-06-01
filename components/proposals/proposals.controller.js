@@ -90,14 +90,12 @@ function influencerApprove(req, res, next) {
 
 function influencerReject(req, res, next) {
     let influencerApprove = {
-        isApprovedByInfluencer: "YES",
+        isApprovedByInfluencer: "NO",
         status:"REJECTED",
         isIPubli: "NO"
     }
-    console.log('teste', req.user.id, req.params.id, influencerApprove)
     proposalService.doIPubli(req.user.id, req.params.id, influencerApprove)
         .then(() => {
-            console.log(res)
             res.json({ message: 'Updated successful' })
         })
         .catch(next);
