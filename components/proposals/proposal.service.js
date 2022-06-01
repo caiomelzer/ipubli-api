@@ -103,22 +103,19 @@ async function create(params) {
     params.isIPubli = "NO";
     params.isApprovedByUser = "NO";
     params.isApprovedByInfluencer = "NO";
+    console.log(params)
     await db.Proposal.create(params);
-    const options = {
-        method: 'POST',
-        url: 'https://rapidprod-sendgrid-v1.p.rapidapi.com/mail/send',
-        headers: {
-          'content-type': 'application/json',
-          'X-RapidAPI-Host': 'rapidprod-sendgrid-v1.p.rapidapi.com',
-          'X-RapidAPI-Key': 's0ZkL9xIhmmshLKzQoBI1GzIrm0Op10bhXtjsn4P3PuE6ELOqN'
-        },
-        data: '{"personalizations":[{"to":[{"email":"melzer.caio@gmail.com"}],"subject":"Você tem uma nova Proposta"}],"from":{"email":"ipubli@ipubli.app"},"content":[{"type":"text/plain","value":"Olá, você recebeu uma nova proposta. Acesse o aplicativo para ter mais informações."}]}'
-      };
-      await axios.request(options).then(function (response) {
-        console.log(response.data);
-    }).catch(function (error) {
-        console.error(error);
-    });
+    userService.getById(params.influecerId)
+    .then((user) => {
+        console.log(proposal)
+        const options = {
+            to: user.username,
+            type: 'proposal-new',
+            message: 'A proposta #'+proposal.id+' foi enviado para você, entre no aplicativo para ver as novidades ou utilize o link: http:ipubli.app/#/proposals',
+            title: 'Você recebeu uma proposta'
+        }
+        utilService.sendNotifications(options)
+    })
 }
 
 async function update(user_id, id, params) {
@@ -136,13 +133,23 @@ async function doIPubli(influencer_id, id, data) {
     userService.getById(proposal.userId)
     .then((user) => {
         console.log(proposal)
-        const options = {
+        let options = {
             to: user.username,
             type: 'proposal-action',
             message: 'A proposta #'+proposal.id+' foi atualizada, entre no aplicativo para ver as novidades ou utilize o link: http:ipubli.app/#/proposals',
             title: 'Sua proposta foi atualizada'
         }
         utilService.sendNotifications(options)
+        if(data.status === "APPROVED"){
+            let options = {
+                to: user.username,
+                type: 'proposal-to-paid',
+                message: 'A proposta #'+proposal.id+' foi aprovado, agora você precisa fazer o pagamento no valor de R$'+proposal.price+' para o PIX do iPubli: <br />Caso tenha alguma dúvida, entre contato com a gente via o whatsapp: 11 98135-8181.',
+                title: 'Sua proposta foi aprovada'
+            }
+            utilService.sendNotifications(options)
+        }
+
     })
     return proposal.get();
 }
