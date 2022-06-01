@@ -30,7 +30,6 @@ async function getAll(user_id, filters) {
             filtersCustom._orderby.push(filter.split(','));
         })
     }    
-      console.log('dasdasda')
     return await db.Proposal.findAll({ 
         where: {
             [Op.and]:[
@@ -67,7 +66,25 @@ async function getProposal(user_id, id) {
     filtersCustom._filters.isIPubli =  {[Op.eq]: 'NO'};
     console.log(filtersCustom._filters)
     const proposal = await db.Proposal.findOne({
-        where: filtersCustom._filters
+        where: {
+            [Op.and]:[
+                {
+                    isIPubli:{[Op.eq]: 'NO'}
+                }
+            ],
+            [Op.or]: [
+              {
+                userId: {
+                  [Op.eq]: user_id
+                }
+              },
+              {
+                influecerId: {
+                    [Op.eq]: user_id
+                  }
+              }
+            ]
+        }
     });
     if (!proposal) throw 'Proposal not found';
     return proposal;
