@@ -12,6 +12,7 @@ router.post('/', authorize(), createSchema, create);
 router.put('/:id', authorize(), update);
 router.put('/:id/user-approve', authorize(), userApprove);
 router.put('/:id/influencer-approve', authorize(), influencerApprove);
+router.put('/:id/influencer-reject', authorize(), influencerReject);
 
 /*router.delete('/:id', authorize(), _delete);
 router.put('/:id/approve', authorize(), updateSchema, update);
@@ -78,6 +79,20 @@ function influencerApprove(req, res, next) {
         isApprovedByInfluencer: "YES",
         status:"APPROVED",
         isIPubli: "YES"
+    }
+    proposalService.doIPubli(req.user.id, req.params.id, influencerApprove)
+        .then(() => {
+            console.log(res)
+            res.json({ message: 'Updated successful' })
+        })
+        .catch(next);
+}
+
+function influencerReject(req, res, next) {
+    let influencerApprove = {
+        isApprovedByInfluencer: "YES",
+        status:"REJECTED",
+        isIPubli: "NO"
     }
     proposalService.doIPubli(req.user.id, req.params.id, influencerApprove)
         .then(() => {

@@ -15,6 +15,7 @@ function model(sequelize) {
         isApprovedByUser: { type: DataTypes.STRING, allowNull: true, default: 'NO'},
         isApprovedByInfluencer: { type: DataTypes.STRING, allowNull: true, default: 'NO'},
         details: { type: DataTypes.TEXT, allowNull: true},
+        avatar: { type: DataTypes.STRING, allowNull: true}
     };
 
     const options = {
