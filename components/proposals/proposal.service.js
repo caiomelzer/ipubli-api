@@ -88,7 +88,7 @@ async function getProposalByInfluencer(influencer_id, id) {
     });
     if (!proposal) throw 'Proposal not found';
     return proposal;
-    
+     
   
 }
 
