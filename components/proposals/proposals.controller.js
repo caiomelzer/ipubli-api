@@ -94,7 +94,7 @@ function influencerReject(req, res, next) {
         status:"REJECTED",
         isIPubli: "NO"
     }
-    console.log(req.user.id, req.params.id, influencerApprove)
+    console.log('teste', req.user.id, req.params.id, influencerApprove)
     proposalService.doIPubli(req.user.id, req.params.id, influencerApprove)
         .then(() => {
             console.log(res)
