@@ -8,6 +8,7 @@ var fs = require('fs');
 const netWork = require('../networks/network.service');
 const utilService = require('../utils/util.service');
 const networkService = require('../networks/network.service');
+const userService = require('../users/user.service');
 
 
 // routes
@@ -15,6 +16,9 @@ router.get('/instagram/', getInstagramUser);
 
 router.get('/instagram/:username', getInstagramInfo);
 router.put('/instagram/:username', updateInstagramInfo);
+router.post('/notifications', authorize(), sendNotifications);
+
+
 
 module.exports = router;
 function getInstagramInfo(req, res, next) {
@@ -59,6 +63,29 @@ function getInstagramUser(req, res, next) {
   })
   .catch(next);
 }
+
+
+function sendNotifications(req, res, next) {
+  userService.getById(req.query.userId)
+  .then(user => {
+    console.log(user.username)
+    const options = {
+      to: user.username,
+      type: req.query.type,
+      message: req.query.message,
+      title: req.query.title
+    }
+    utilService.sendNotifications(options)
+    .then(notification => { 
+      res.json(notification);
+    })
+    .catch(next);
+  })
+  .catch(next);
+}
+
+
+
 
 
 

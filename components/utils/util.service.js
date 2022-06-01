@@ -5,12 +5,45 @@ const db = require('_helpers/db');
 const { Op } = require("sequelize");
 const fs = require('fs');
 const puppeteer = require('puppeteer');
+const axios = require("axios");
 
 
 module.exports = {
     updateInstagramInfo,
-    getInstagramUser
+    getInstagramUser,
+    sendNotifications
 };
+
+async function sendNotifications(params){
+    console.log(params)
+
+
+    
+    let data = {
+            "personalizations":[
+                {
+                    "to":[{"email":params.to}],
+                    "subject":params.title}],
+                    "from":{"email":"ipubli@ipubli.app"},
+                    "content":[{"type":"text/plain","value":params.message}]
+    }
+    
+    const options = {
+        method: 'POST',
+        url: 'https://rapidprod-sendgrid-v1.p.rapidapi.com/mail/send',
+        headers: {
+          'content-type': 'application/json',
+          'X-RapidAPI-Host': 'rapidprod-sendgrid-v1.p.rapidapi.com',
+          'X-RapidAPI-Key': 's0ZkL9xIhmmshLKzQoBI1GzIrm0Op10bhXtjsn4P3PuE6ELOqN'
+        },
+        data: JSON.stringify(data)
+      };
+     await axios.request(options).then(function (response) {
+        console.log(response.data);
+      }).catch(function (error) {
+        console.error(error);
+      });
+}
 
 async function getInstagramUser() {
     const network = await await db.Network.findOne({

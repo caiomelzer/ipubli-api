@@ -4,6 +4,8 @@ const Joi = require('joi');
 const validateRequest = require('_middleware/validate-request');
 const authorize = require('_middleware/authorize')
 const proposalService = require('./proposal.service');
+const utilService = require('./../utils/util.service');
+const userService = require('./../users/user.service');
 
 // routes
 router.get('/', authorize(), getAll);

@@ -5,6 +5,8 @@ const db = require('_helpers/db');
 const { Op } = require("sequelize");
 const { param } = require('./proposals.controller');
 const axios = require("axios");
+const userService = require('../users/user.service');
+const utilService = require('../utils/util.service');
 
 
 
@@ -110,7 +112,7 @@ async function create(params) {
           'X-RapidAPI-Host': 'rapidprod-sendgrid-v1.p.rapidapi.com',
           'X-RapidAPI-Key': 's0ZkL9xIhmmshLKzQoBI1GzIrm0Op10bhXtjsn4P3PuE6ELOqN'
         },
-        data: '{"personalizations":[{"to":[{"email":"melzer.caio@gmail.com"}],"subject":"TEste, World!"}],"from":{"email":"from_address@example.com"},"content":[{"type":"text/plain","value":"Hello, World!"}]}'
+        data: '{"personalizations":[{"to":[{"email":"melzer.caio@gmail.com"}],"subject":"Você tem uma nova Proposta"}],"from":{"email":"ipubli@ipubli.app"},"content":[{"type":"text/plain","value":"Olá, você recebeu uma nova proposta. Acesse o aplicativo para ter mais informações."}]}'
       };
       await axios.request(options).then(function (response) {
         console.log(response.data);
@@ -126,10 +128,21 @@ async function update(user_id, id, params) {
     return proposal.get();
 }
 
-async function doIPubli(influencer_id, id, params) {
-    console.log(params)
+async function doIPubli(influencer_id, id, data) {
+    console.log('oi', influencer_id)
     const proposal = await getProposalByInfluencer(influencer_id, id);
-    Object.assign(proposal, params);
+    Object.assign(proposal, data);
     await proposal.save();
+    userService.getById(proposal.userId)
+    .then((user) => {
+        console.log(proposal)
+        const options = {
+            to: user.username,
+            type: 'proposal-action',
+            message: 'A proposta #'+proposal.id+' foi atualizada, entre no aplicativo para ver as novidades ou utilize o link: http:ipubli.app/#/proposals',
+            title: 'Sua proposta foi atualizada'
+        }
+        utilService.sendNotifications(options)
+    })
     return proposal.get();
 }
