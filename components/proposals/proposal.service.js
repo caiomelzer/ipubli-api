@@ -16,20 +16,6 @@ module.exports = {
 };
 
 async function getAll(user_id, filters) {
-    let filtersCustom = {
-        _top:100,
-        _orderby:[],
-        _filters:{}
-    };
-    filtersCustom._filters.userId =  {[Op.eq]: user_id}
-    filtersCustom._filters.isIPubli =  {[Op.eq]: 'NO'}
-    if(filters._t)
-        filtersCustom._top = parseInt(filters._t)
-    if(filters._o){
-        filters._o.split(';').forEach(function(filter){
-            filtersCustom._orderby.push(filter.split(','));
-        })
-    }    
     return await db.Proposal.findAll({ 
         where: {
             [Op.and]:[
@@ -58,13 +44,6 @@ async function getById(user_id, id) {
 }
 
 async function getProposal(user_id, id) {
-    let filtersCustom = {
-        _filters:{}
-    };
-    filtersCustom._filters.userId =  {[Op.eq]: user_id};
-    filtersCustom._filters.id =  {[Op.eq]: id};
-    filtersCustom._filters.isIPubli =  {[Op.eq]: 'NO'};
-    console.log(filtersCustom._filters)
     const proposal = await db.Proposal.findOne({
         where: {
             [Op.and]:[
