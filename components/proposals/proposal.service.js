@@ -32,9 +32,24 @@ async function getAll(user_id, filters) {
     }    
       
     return await db.Proposal.findAll({ 
-        where: filtersCustom._filters,
-        limit: filtersCustom._top,
-        order: filtersCustom._orderby
+        where: {
+            [Op.and]:[
+                {isPubli:'NO'}
+            ],
+            [Op.or]: [
+              {
+                userId: {
+                  [Op.eq]: user_id
+                }
+              },
+              {
+                influecerId: {
+                    [Op.eq]: user_id
+                  }
+              }
+            ]
+        },
+        order: [id]
     });
 }
 
