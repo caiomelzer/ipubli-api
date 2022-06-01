@@ -13,7 +13,7 @@ async function initialize() {
     const { host, port, user, password, database } = config.database;
     console.log(host)
     const connection = await mysql.createConnection({ host, port, user, password });
-    await connection.query(`DROP DATABASE \`${database}\`;`);
+   // await connection.query(`DROP DATABASE \`${database}\`;`);
     await connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
     
     // connect to db
