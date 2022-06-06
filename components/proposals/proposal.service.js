@@ -101,17 +101,16 @@ async function getProposalByInfluencer(influencer_id, id) {
 async function create(params) {
     params.status = "DRAFT";
     params.isIPubli = "NO";
-    params.isApprovedByUser = "NO";
+    params.isApprovedByUser = "YES";
     params.isApprovedByInfluencer = "NO";
     console.log(params)
     await db.Proposal.create(params);
     userService.getById(params.influecerId)
     .then((user) => {
-        console.log(proposal)
         const options = {
             to: user.username,
             type: 'proposal-new',
-            message: 'A proposta #'+proposal.id+' foi enviado para você, entre no aplicativo para ver as novidades ou utilize o link: http:ipubli.app/#/proposals',
+            message: 'Uma nova proposta foi enviado para você, entre no aplicativo para ver as novidades ou utilize o link: http:ipubli.app/#/proposals',
             title: 'Você recebeu uma proposta'
         }
         utilService.sendNotifications(options)

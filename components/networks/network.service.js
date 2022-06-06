@@ -12,7 +12,8 @@ module.exports = {
     enable,
     disable,
     delete: _delete,
-    update
+    update,
+    getNetworkByUser
 };
 
 
@@ -23,6 +24,15 @@ async function getAll(filters) {
         status: {[Op.notLike]: '%tive'} 
         },
         include:['segments']
+    })
+}
+
+async function getNetworkByUser(id) {
+    console.log('entrou')
+
+    return await db.Network.findAll({ where: {
+        userId: {[Op.eq]: id} 
+        }
     })
 }
 

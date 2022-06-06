@@ -41,7 +41,6 @@ function createSchema(req, res, next) {
         influecerId: Joi.string().required(),
         price: Joi.string().required(),
         details: Joi.string().required(),
-        startedAt: Joi.string().required(),
         finishAt: Joi.string().required()
     });
     validateRequest(req, next, schema);

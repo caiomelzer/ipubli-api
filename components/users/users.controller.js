@@ -4,6 +4,8 @@ const Joi = require('joi');
 const validateRequest = require('_middleware/validate-request');
 const authorize = require('_middleware/authorize')
 const userService = require('./user.service');
+const networkService = require('./../networks/network.service');
+
 
 // routes
 router.post('/authenticate', authenticateSchema, authenticate);
@@ -13,6 +15,7 @@ router.get('/current', authorize(), getCurrent);
 router.get('/:id', authorize(), getById);
 router.put('/:id', authorize(), updateSchema, update);
 router.delete('/:id', authorize(), _delete);
+router.get('/:id/networks', authorize(), getUserNetworks);
 
 module.exports = router;
 
@@ -31,14 +34,15 @@ function authenticate(req, res, next) {
 }
 
 function registerSchema(req, res, next) {
-    console.log('dasdasdada', Joi)
     const schema = Joi.object({
         firstName: Joi.string().required(),
         lastName: Joi.string().required(),
         username: Joi.string().required(),
         password: Joi.string().min(6).required(),
         email: Joi.string().required(),
-        state: Joi.string().required()
+        state: Joi.string().required(),
+        city: Joi.string().required(),
+        country: Joi.string().required()
     });
     validateRequest(req, next, schema);
 }
@@ -50,7 +54,13 @@ function register(req, res, next) {
 }
 
 function getAll(req, res, next) {
-    userService.getAll()
+    networkService.getAll()
+        .then(networks => res.json(networks))
+        .catch(next);
+}
+
+function getUserNetworks(req, res, next) {
+    networkService.getNetworkByUser(req.user.id)
         .then(users => res.json(users))
         .catch(next);
 }
@@ -66,17 +76,23 @@ function getById(req, res, next) {
 }
 
 function updateSchema(req, res, next) {
+    console.log(req.body)
     const schema = Joi.object({
-        firstName: Joi.string().empty(''),
-        lastName: Joi.string().empty(''),
-        username: Joi.string().empty(''),
-        email: Joi.string().required(),
-        password: Joi.string().min(6).empty('')
+        email: Joi.string().empty(''),
+        country: Joi.string().empty(''),
+        city: Joi.string().empty(''),
+        state: Joi.string().empty(''),
+        status: Joi.string().empty(''),
+        avatar: Joi.string().empty(''),
+        isInfluencer: Joi.string().empty(''),
+        startValue: Joi.string().empty('')
+
     });
     validateRequest(req, next, schema);
 }
 
 function update(req, res, next) {
+    console.log(req.body)
     userService.update(req.params.id, req.body)
         .then(user => res.json(user))
         .catch(next);
